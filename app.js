@@ -17,16 +17,21 @@ let dataPathRegions = './data/article-Regions.csv'
 //     }
 // });
 
-let csvDevices = fs.readFileSync(dataPathDevices, 'utf-8');
-let csvRegions = fs.readFileSync(dataPathRegions, 'utf-8');
-
+let csvDevicesFull = fs.readFileSync(dataPathDevices, 'utf-8');
+let csvRegionsFull = fs.readFileSync(dataPathRegions, 'utf-8');
+let csvDevices = csvDevicesFull.trim();
+let csvRegions = csvRegionsFull.trim();
+console.log(csvDevices);
+console.log(csvRegions);
+console.log("--------------------");
 
 // AR - parse csv data with Papa Parse package
 let Papa = require("papaparse/papaparse.min.js");
 let resultsDevices = Papa.parse(csvDevices);
 let resultsRegions = Papa.parse(csvRegions);
-// console.log(resultsDevices.data);
-// console.log(resultsRegions.data);
+console.log(resultsDevices.data);
+console.log(resultsRegions.data);
+console.log("--------------------");
 
 let DevicesDataArray = resultsDevices.data;
 let RegionsDataArray = resultsRegions.data;

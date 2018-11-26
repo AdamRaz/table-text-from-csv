@@ -15,8 +15,8 @@ navigate to an empty working directory on your computer, clone the project with 
 
 ## Built With
 
-* [node filesystem api](https://nodejs.org/docs/latest/api/fs.html) - 
-* [papa parse](https://www.papaparse.com) - to parse CSV data
+* [node filesystem api](https://nodejs.org/docs/latest/api/fs.html) - to read and write data locally.
+* [papa parse](https://www.papaparse.com) - to parse CSV data.
 * ['table' from npm ](https://www.npmjs.com/package/table) - used to output data into a formatted table.
 
 ## Authors

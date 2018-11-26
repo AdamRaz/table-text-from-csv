@@ -1,5 +1,5 @@
 
-// select right tool for the job, seems clunky in javascript, try perl, read and do python if time.
+// select right tool for the job, seems clunky in javascript, try repeat in perl if time.
 
 const {table} = require('table');
 
@@ -98,6 +98,7 @@ let DevicesDataArray = resultsDevices.data;
 let RegionsDataArray = resultsDevices.data;
 
 
+
 // ***d.txt*** - Output the percentage of people visiting the page via a mobile phone or a tablet device
 // AR - separate and combined percentages (i.e. mobile, tablet, combined mobile+tablet) do per hour and totals (mean of means) at the end?
 
@@ -140,17 +141,13 @@ let dOutput = table(deviceUsageArray);
 console.log(dOutput);
 
 const fs = require('fs');
-fs.writeFile("./nodetmp/d-task.txt", dOutput, function(err) {
-    if(err) {
-        return console.log(err);
+fs.writeFile("./nodetmp/d-task.txt", dOutput, function(error) {
+    if(error) {
+        return console.log(error);
     }
 
     console.log("file d was saved!");
 }); 
-
-
-
-
 
 
 
@@ -207,9 +204,9 @@ console.log(tableFileData);
 let aOutput = table(tableFileData);
 console.log(aOutput);
 
-fs.writeFile("./nodetmp/a-task.txt", aOutput, function(err) {
-    if(err) {
-        return console.log(err);
+fs.writeFile("./nodetmp/a-task.txt", aOutput, function(error) {
+    if(error) {
+        return console.log(error);
     }
 
     console.log("file a was saved!");

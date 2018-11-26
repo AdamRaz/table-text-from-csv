@@ -141,7 +141,7 @@ let dOutput = table(deviceUsageArray);
 console.log(dOutput);
 
 const fs = require('fs');
-fs.writeFile("./nodetmp/d-task.txt", dOutput, function(error) {
+fs.writeFile("./finalTextOutput/d-task.txt", dOutput, function(error) {
     if(error) {
         return console.log(error);
     }
@@ -204,7 +204,7 @@ console.log(tableFileData);
 let aOutput = table(tableFileData);
 console.log(aOutput);
 
-fs.writeFile("./nodetmp/a-task.txt", aOutput, function(error) {
+fs.writeFile("./finalTextOutput/a-task.txt", aOutput, function(error) {
     if(error) {
         return console.log(error);
     }

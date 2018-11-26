@@ -1,38 +1,35 @@
-// select right tool for the job, seems clunky in javascript, try repeat in perl if time.
+// AR - select right tool for the job, seems clunky in javascript, try repeat in perl if time.
 
 // AR - using table package from npm , papa parse & nodejs filesystem tools
 const {table} = require('table');
 const fs = require('fs');
 let Papa = require("papaparse/papaparse.min.js");
 
-
 let dataPathDevices = './data/article-Devices.csv'
 let dataPathRegions = './data/article-Regions.csv'
+
 
 //AR - can use async version of readFile method for more complex situations, trigger processing and file writing from callback function
 // fs.readFile(dataPath1, {encoding: 'utf-8'}, function(error ,data){
 //     if (error) {
 //         console.log(err);
-
 //     } else {
 //         console.log('received data: ' + data);
 //     }
 // });
 
 let csvDevicesFull = fs.readFileSync(dataPathDevices, 'utf-8');
+console.log("reading hourly device data from ./data/article-Devices.csv");
+
 let csvRegionsFull = fs.readFileSync(dataPathRegions, 'utf-8');
+console.log("reading hourly region data from ./data/article-Regions.csv");
+
 let csvDevices = csvDevicesFull.trim();
 let csvRegions = csvRegionsFull.trim();
-console.log(csvDevices);
-console.log(csvRegions);
-console.log("--------------------");
 
 // AR - parse csv data with Papa Parse package
 let resultsDevices = Papa.parse(csvDevices);
 let resultsRegions = Papa.parse(csvRegions);
-console.log(resultsDevices.data);
-console.log(resultsRegions.data);
-console.log("--------------------");
 
 let devicesDataArray = resultsDevices.data;
 let regionsDataArray = resultsRegions.data;
@@ -41,30 +38,17 @@ let regionsDataArray = resultsRegions.data;
 // ***d.txt*** - Output the percentage of people visiting the page via a mobile phone or a tablet device
 // AR - separate and combined percentages (i.e. mobile, tablet, combined mobile+tablet), do per hour and totals (mean of means) at the end?
 
-// parsing text to get integers for device views
-// let sampleDeviceRecord = devicesDataArray[2];
-// let sampleTotalViews = Number.parseInt(sampleDeviceRecord[1]);
-// let sampleMobileViews = Number.parseInt(sampleDeviceRecord[2]);
-// let sampleTabletViews = Number.parseInt(sampleDeviceRecord[4]);
-// let MobilePercentage = ((sampleMobileViews / sampleTotalViews) * 100);
-// console.log(sampleDeviceRecord);
-// console.log(sampleTotalViews);
-// console.log(sampleMobileViews);
-// console.log(sampleTabletViews);
-// console.log(`${MobilePercentage.toFixed(2)}%`);
-
-
 let deviceUsageArray = [];
 let deviceTableFileHeader = ["Quarter Hour Period", "mobile view (%)", "tablet view (%)", "combined mobile+tablet (%)"];
 deviceUsageArray.push(deviceTableFileHeader);
 
 for (let i = 1; i < devicesDataArray.length; i++) {
     // AR - start at 2nd record, added header above already, really there should not be hardcoded starting point? Ideally match all rows that contain data instead.
-
     let totalViews = Number.parseInt(devicesDataArray[i][1]);
     let mobileViews = Number.parseInt(devicesDataArray[i][2]);
     let tabletViews = Number.parseInt(devicesDataArray[i][4]);
     let combinedViews = mobileViews + tabletViews;
+
     // AR - avoid dividing by zero when calculating percentage, asign zero value instead.
     let mobilePercentage = (totalViews > 0) ? (mobileViews / totalViews * 100) : 0;
     let tabletPercentage = (totalViews > 0) ? (tabletViews / totalViews * 100) : 0;
@@ -72,17 +56,16 @@ for (let i = 1; i < devicesDataArray.length; i++) {
 
     let deviceUsageTableRow = [devicesDataArray[i][0], mobilePercentage.toFixed(1), tabletPercentage.toFixed(1), combinedPercentage.toFixed(1)];
     deviceUsageArray.push(deviceUsageTableRow);
-
 }
 
 let dOutput = table(deviceUsageArray);
-console.log(dOutput);
+// console.log(dOutput);
 
 fs.writeFile("./finalTextOutput/d-task.txt", dOutput, function(error) {
     if(error) {
         return console.log(error);
     }
-    console.log("task d output file was saved!");
+    console.log("task d output file was saved to ./finalTextOutput/d-task.txt!");
 }); 
 
 
@@ -111,7 +94,6 @@ for (let i = 0; i < 24; i++) {
         }
         
     }
-    // console.log(miniTotal);
     let perHourData = {};
     perHourData.hour = i;
     //AR - have a counter above to see how many data points we have then divide by that below (add check to prevent divide by zero)
@@ -122,30 +104,22 @@ for (let i = 0; i < 24; i++) {
         perHourData.meanViewsPerQuarter = "-";
     }
     hoursAndTotalsArray.push(perHourData);
-
 }
-
-console.log(hoursAndTotalsArray);
 
 let tableFileData = [];
 let tableFileHeader = ["Hour Period", "Average (mean) views"];
 tableFileData.push(tableFileHeader);
 for (let k = 0; k < hoursAndTotalsArray.length; k++) {
-
     let tableFileRow = [`${hoursAndTotalsArray[k].hour}:00-${hoursAndTotalsArray[k].hour}:59`, hoursAndTotalsArray[k].meanViewsPerQuarter];
     tableFileData.push(tableFileRow);
 }
 
-console.log(tableFileData);
-
-// let HourSpecificArray = []
-
 let aOutput = table(tableFileData);
-console.log(aOutput);
+// console.log(aOutput);
 
 fs.writeFile("./finalTextOutput/a-task.txt", aOutput, function(error) {
     if(error) {
         return console.log(error);
     }
-    console.log("task a output file was saved!");
+    console.log("task a output file was saved to ./finalTextOutput/a-task.txt!");
 }); 

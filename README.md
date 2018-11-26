@@ -27,7 +27,8 @@ navigate to an empty working directory on your computer, clone the project with 
 
 * readme template: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 * table npm info: https://stackoverflow.com/questions/47135815/write-data-as-table-structure-in-text-file-using-nodejs
-* nodejs info: https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+* nodejs file write info: https://stackoverflow.com/questions/2496710/writing-files-in-node-js
+* nodejs file read info: https://code-maven.com/reading-a-file-with-nodejs
 
 
 ## project preview:

@@ -62,15 +62,15 @@ for (let i = 1; i < DevicesDataArray.length; i++) {
     // AR - start at 2nd record, added header above already, really there should not be hardcoded starting point? Match all rows that contain data instead.
 
     let totalViews = Number.parseInt(DevicesDataArray[i][1]);
-    let mobileViews = Number.parseInt(sampleDeviceRecord[2]);
-    let tabletViews = Number.parseInt(sampleDeviceRecord[4]);
+    let mobileViews = Number.parseInt(DevicesDataArray[i][2]);
+    let tabletViews = Number.parseInt(DevicesDataArray[i][4]);
     let combinedViews = mobileViews + tabletViews;
     // AR - avoid dividing by zero when calculating percentage, asign zero value instead.
     let mobilePercentage = (totalViews > 0) ? (((mobileViews / totalViews) * 100)): 0;
     let tabletPercentage = (totalViews > 0) ? (((tabletViews / totalViews) * 100)): 0;
     let combinedPercentage = (totalViews > 0) ? (((combinedViews / totalViews) * 100)): 0;
 
-    let deviceUsageTableRow = [DevicesDataArray[i][0], mobilePercentage.toFixed(0), tabletPercentage.toFixed(0), combinedPercentage.toFixed(0)];
+    let deviceUsageTableRow = [DevicesDataArray[i][0], mobilePercentage.toFixed(1), tabletPercentage.toFixed(1), combinedPercentage.toFixed(1)];
     deviceUsageArray.push(deviceUsageTableRow);
 
     //AR TODO - add summation in loop

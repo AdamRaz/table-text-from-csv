@@ -35,4 +35,4 @@ navigate to an empty working directory on your computer, clone the project with 
 
 table data screens:
 
-![image of table text outpu](./readme-img-2.PNG "sample table output")
+![image of table text output](./readme-img-2.PNG "sample table output")

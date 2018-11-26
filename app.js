@@ -96,7 +96,7 @@ let hoursAndTotalsArray = [];
 for (let i = 0; i < 24; i++) {
     // AR - effectively, for each hour of the day, go through the data and find rows that match that hour, then keep a running total of views.
     let miniTotal = 0;
-    // let matchingDataRows = 0;
+    let matchingDataRows = 0;
     for (let j = 0; j < regionsDataArray.length; j++) {
     // AR - would probably adapt this if data array was huge, extract hour and directly add to an object key for that specific hour, rather than looping and testing.
 
@@ -105,7 +105,7 @@ for (let i = 0; i < 24; i++) {
         hour = Number.parseInt(hour);
     
         if (hour === i) {
-            // matchingDataRows++;
+            matchingDataRows++;
             // AR - now have only the hours we want, extract totals
             miniTotal += Number.parseInt(regionsDataArray[j][1]);
         }
@@ -114,8 +114,13 @@ for (let i = 0; i < 24; i++) {
     // console.log(miniTotal);
     let perHourData = {};
     perHourData.hour = i;
-    //AR - TODO should add a counter above to see how many data points we have then divide by that below (add check to prevent divide by zero)
-    perHourData.meanViewsPerQuarter = (miniTotal / 4).toFixed(0);
+    //AR - have a counter above to see how many data points we have then divide by that below (add check to prevent divide by zero)
+    if (matchingDataRows) {
+        perHourData.meanViewsPerQuarter = (miniTotal / matchingDataRows).toFixed(0);
+    } else {
+        // AR - if we have no data for a certain hour slot, table can show "-" or "N/A"
+        perHourData.meanViewsPerQuarter = "-";
+    }
     hoursAndTotalsArray.push(perHourData);
 
 }
